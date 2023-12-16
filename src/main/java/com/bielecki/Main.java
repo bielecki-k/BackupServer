@@ -4,28 +4,48 @@ import com.google.common.collect.ImmutableList;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Objects;
 
-import com.google.common.io.Files;
 @SpringBootApplication
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         System.out.println("Hello world!");
-        listFiles("C:\\Users\\admin\\Documents");
+//        List<File> files = listFiles("C:\\Users\\admin\\Documents");
+        copyFile();
 
     }
 
-    public static void listFiles(String directoryPath){
+    public static void copyFile() throws IOException {
 
-        // Wykorzystanie Guava do stworzenia niemodyfikowalnej listy plików
+        File fileToCopy = new File("C:\\Users\\admin\\Documents\\konto xbox.txt");
+        File destinationFolder = new File("C:\\Users\\admin\\Documents\\backupSystem");
+
+//        String destinationPath = "C:\\Users\\admin\\Documents\\backupSystem\\konto xbox.txt"; // Zastąp ścieżką do nowego pliku
+
+//        File newFile = new File(destinationPath);
+//        newFile.createNewFile();
+
+        Path sourcePath = new File("C:\\Users\\admin\\Documents\\konto xbox.txt").toPath();
+        Path destinationPath = new File("C:\\Users\\admin\\Documents\\backupSystem\\konto xbox.txt").toPath();
+
+        Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+
+//        com.google.common.io.Files.copy(fileToCopy, destinationFolder);
+
+    }
+
+    public static List<File> listFiles(String directoryPath){
         List<File> fileList = ImmutableList.copyOf(Objects.requireNonNull(new File(directoryPath).listFiles()));
-
-        // Wyświetlanie nazw plików
         for (File file : fileList) {
             System.out.println(file.getName());
         }
+        return fileList;
     }
 
 }
