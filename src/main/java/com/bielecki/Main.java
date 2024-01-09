@@ -16,12 +16,9 @@ import java.util.Objects;
 public class Main {
 
     static Path destinationPath = new File("C:\\Users\\admin\\Documents\\backupSystem").toPath();
-
     static String sourcePath = "C:\\Users\\admin\\Documents";
 
-    public static void main(String[] args) throws IOException {
-
-        System.out.println("Hello world!");
+    public static void main(String[] args) {
         listFilesFromDirectory(sourcePath);
 
     }
